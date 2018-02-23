@@ -1,0 +1,297 @@
+/* Google Fonts */
+
+
+
+body {
+	background-color: #f1f1f1;
+	font-size: 12pt;
+}
+
+table, th, td {
+	padding: 4px;
+	text-align: center;
+	border-collapse: collapse;
+	font-family: "Arial", cursive, sans-serif;
+}
+
+td.inputLabel {
+	font-size: 12px;
+	font-weight: 500;
+	font-style: italic;
+}
+
+table {
+	border: 2px solid #364496;
+	border-radius: 8px;
+	width: 100%;
+	min-width: 1224px;
+}
+
+tr {
+	margin: 2px 0px;
+}
+
+th {
+	background-color: #364496;
+	color: #FFFFFF;
+	border-bottom: 1px solid #fff;
+	position: relative;
+}
+
+td.result {
+	width: 33%;
+	margin: 5px;
+	height: 450px;
+}
+
+select {
+	width: 96%;
+	padding: 4px 4px;
+	border: none;
+	border-radius: 6px;
+	background-color: #e3e3e3;
+	font-size: 12pt;
+}
+
+input:focus {
+	border: 1px solid #364496;
+}
+
+input[type=radio] {
+	padding: 8px 4px;
+	margin: 6px 0px 0px 14px;
+}
+
+input[type=number], input[type=text] {
+	width: 96%;
+	padding: 4px 4px;
+	box-sizing: border-box;
+	border-radius: 6px;
+	background-color: #e3e3e3;
+	font-size: 12pt;
+}
+
+button[type=button] {
+	width: 90%;
+	border: none;
+	background-color: #364496;
+	color: #FFFFFF;
+	padding: 16px 32px;
+	border-radius: 6px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 12pt;
+}
+
+button[type=button]:active {
+	transform: translateY(4px);
+}
+
+button[type=button]:disabled {
+	color: #666666;
+}
+
+a {
+	color: #666666;
+}
+
+div#p_data, div#results {
+	width: 96%;
+	position: relative;
+	margin: 5px auto;
+}
+
+div#results {
+	min-height: 360px;
+}
+
+div.inputField {
+	margin: 4px;
+	padding: 4px;
+	border: 1px solid #e3e3e3;
+	position: relative;
+	height: 35px;
+	max-width: 340px;
+	min-width: 220px;
+	background-color: transparent;
+}
+
+div.outputField {
+	position: relative;
+	margin: 4px;
+	padding: 4px;
+	border: 2px solid #e3e3e3;
+	border-radius: 6px;
+	position: relative;
+	height: 420px;
+	width: 96%;
+	background-color: #f2f2f2;
+}
+
+div.scoreDisplay {
+	position: relative;
+	display: inline-block;
+	min-width: 100px;
+	border-radius:10px;
+	border:1px solid #fff;
+	margin:5px;
+}
+
+div.scoreTitle {
+	position: relative;
+	min-width: 100px;
+	font-size: 16px;
+	background-color:#fff;
+		border-top-left-radius:10px;
+		border-top-right-radius:10px;
+}
+
+div.scoreResult {
+	position: relative;
+	min-width: 100px;
+	font-size: 35px;
+}
+
+div.scoreResult span{
+	font-size: 18px;
+	vertical-align:baseline;
+
+}
+
+div[id$="RawData"] {
+	display: none;
+}
+
+div.inputs {
+	position: absolute;
+	top: 10px;
+	left: 4px;
+	width: 98%;
+	margin: 0 auto;
+}
+
+div.source{
+	display:inline-block;
+	color: gray;
+	background-color:#f2f2f2;
+	font-size: .8em;
+	margin: 0px 6px;
+	padding: 0px 4px;
+}
+
+label {
+	background-color: #f2f2f2;
+	position: absolute;
+	top: -6px;
+	left: 6px;
+	font-style: italic;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 0px 8px;
+}
+
+label#pdata, label#sdata {
+	background-color: transparent;
+	font-size: 24px;
+	font-style: normal;
+	top: 6px;
+	left: 6px;
+}
+
+label.outputTitle {
+	top: -9px;
+	font-size: 18px;
+	color: black;
+	left: 20px;
+}
+
+span.sourcelink {
+	position: absolute;
+	top: -10px;
+	right: 20px;
+	background-color: #f1f1f1;
+	padding: 0px 4px;
+	color: #666666;
+}
+
+#prosData, #lungData, #liverData {
+	width: 90%;
+	margin: 0 auto;
+	border-radius: 10px;
+	border: 1px solid #e6e6e6; height : 40px;
+	padding: 5px 0px 15px 0px;
+	font-size: 18px;
+	font-weight: 700;
+	background-color: #e6e6e6;
+	height: 60px;
+}
+
+#prosInterpret, #lungInterpret, #liverInterpret {
+	height: 260px;
+	max-height:280px;
+	overflow:auto;
+	margin:10px auto;
+	width:98%;
+}
+
+#status, #l_data {
+	width: 96%;
+	position: relative;
+	margin: 5px auto;
+	border: 1px solid #364496;
+	min-width: 1224px;
+	background-color:#364496;
+	min-height:24px;
+
+}
+
+#status span, #l_data span {
+	color:#fff;
+	font-size:16px;
+	padding:2px 12px;
+	margin:4px 0px 0px;
+	line-height:1.5em;
+}
+
+textarea#statusArea {
+	position: relative;
+	width: 99.4%;
+	resize: none;
+	padding: 4px;
+	border: none;
+	color: #666666;
+	min-height: 140px;
+	font-weight: 500;
+	line-height: 1.1em;
+	font-size: 14px;
+	margin: 0 auto;
+	overflow: auto;
+
+}
+
+.calctitle {
+	position: relative;
+	top: 4px;
+	font-size: 14px;
+	color: #364496;
+	text-align: center;
+	border-bottom: 1px solid #fff;
+	line-height: 1.5em;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 10px;
+	width: 220px;
+}
+.highlighted{
+	background-color: #ffcb05;
+	border-color: #f2f2f2;
+}
+#pselector input {
+	margin: 10px;
+}
+
+#hideBtn {
+	float:right;
+	margin:2px 2px;
+	border-radius:5px;
+}
