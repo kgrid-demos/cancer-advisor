@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Cancer Advisor</title>
+<!-- <link rel="stylesheet" href="./static/css/rsci.css" type="text/css" /> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="./static/css/ca_style.css"/>
+<script src="./static/js/moment.min.js"></script>
+<script src="./static/js/jquery-3.2.1.min.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<!-- <script>window.jQuery || document.write('<script src="./static/js/jquery-3.2.1.min.js"><\/script>')</script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://localhost:8080/icon/array/v0.0.1/model/resource/iconarray.js"></script>
+</head>
+<body>
+	<div id='app' style='position:relative;'>
+<header>
+<div class="k-container color-scheme pad-left20">
+	<div  class="pad-left10" style="color:#fff;">
+	<h2>Cancer Advisor</h2></div>
+</div>
+</header>
+
+	<div class="k-container" >
+		<form name="dataForm" method="post">
+			<table>
+				<tr>
+					<th colspan="5"><label id="pdata">DATA</label>
+						<div class="radio-group">
+							<input type="radio" id="option-zero" value="0" name="patient" v-model='autofillSelection'>
+							<label for="option-zero">Patient 1</label>
+							<input type="radio" id="option-one" value="1" name="patient" v-model='autofillSelection'>
+							<label for="option-one">Patient 2</label>
+							<input type="radio" id="option-two"value="2"  name="patient" v-model='autofillSelection'>
+							<label for="option-two">Patient 3</label>
+						</div>
+          </th>
+				</tr>
+				<tr>
+					<td class="liver pros" :class='{highlighted:highlighted.pros | highlighted.liver}'>
+						<div class="inputField">
+							<label for="gender">Gender</label>
+							<div class="inputs radio-group">
+								<input type="radio" name="gender" value="M" v-model="patientSelected.gender"> Male<input
+									type="radio" name="gender" value="F" v-model="patientSelected.gender"> Female
+							</div>
+						</div>
+					</td>
+					<td class="liver pros lung">
+						<div class="inputField">
+							<label for="age">Age</label>
+							<div class="inputs">
+								<input type="number" name="age" id="age" v-model="patientSelected.age">
+							</div>
+						</div>
+					</td>
+					<td class="lung">
+						<div class="inputField">
+							<label for="bmi">BMI</label>
+							<div class="inputs">
+								<input type="number" name="bmi" step="0.1" id="bmi" v-model="patientSelected.bmi">
+							</div>
+						</div>
+					</td>
+					<td class="pros lung"><div class="inputField">
+							<label for="Race">Race</label>
+							<div class="inputs">
+								<select name="Race" id="Race">
+									<option value=''>---- select ----</option>
+									<option value=1>White</option>
+									<option value=2>Black</option>
+									<option value=3>Hispanic</option>
+									<option value=4>Asian</option>
+									<option value=5>American Indian/Alaskan Native</option>
+									<option value=6>Native Hawaiian/Pacific Islander</option>
+								</select>
+							</div>
+						</div></td>
+
+					<td class="lung">
+						<div class="inputField">
+							<label for="edLevel">Education Completed</label>
+							<div class="inputs">
+								<select name="edLevel" id="edLevel">
+									<option value=''>---- select ----</option>
+									<option value=1>Less than high school graduation</option>
+									<option value=2>High school graduation</option>
+									<option value=3>Post high school training</option>
+									<option value=4>Some college</option>
+									<option value=5>College graduation</option>
+									<option value=6>Postgraduation/professional</option>
+								</select>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+
+					<td class="lung"><div class="inputField">
+							<label for="hxLungCancer">Personal History of Cancer</label>
+							<div class="inputs">
+								<input type="radio" name="hxLungCancer" value="1"> Yes <input
+									type="radio" name="hxLungCancer" value="0"> No
+							</div>
+						</div></td>
+					<td class="pros lung"><div class="inputField">
+							<label for="hxLungCancerFam">Family History of Cancer</label>
+							<div class="inputs">
+								<input type="radio" name="hxLungCancerFam" value="1">
+								Yes <input type="radio" name="hxLungCancerFam" value="0">
+								No
+							</div>
+						</div></td>
+					<td class="lung"><div class="inputField">
+							<label for="hxNonLungCancerDz">Chronic obstructive
+								pulmonary disease</label>
+							<div class="inputs">
+								<input type="radio" name="hxNonLungCancerDz" value="1">
+								Yes <input type="radio" name="hxNonLungCancerDz" value="0">
+								No
+							</div>
+						</div></td>
+					<td class="pros"><div class="inputField">
+							<label for="PriorBiop">Prior Prostate Biopsy</label>
+							<div class="inputs">
+								<input type="radio" name="PriorBiop" value="1" id="PriorBiop">
+								Negative <input type="radio" name="PriorBiop" value="0"
+									id="PriorBiop"> Positive
+							</div>
+						</div></td>
+					<td class="pros"><div class="inputField">
+							<label for="DRE">Digital Rectal Exam</label>
+							<div class="inputs">
+								<input type="radio" name="DRE" value="1">Suspicious<input
+									type="radio" name="DRE" value="0">Normal
+							</div>
+						</div></td>
+				</tr>
+				<tr>
+					<td class="pros"><div class="inputField">
+							<label for="PSA">Prostate Specific Antigen in ng/mL</label>
+							<div class="inputs">
+								<input type="number" name="PSA" id="PSA" v-model="patientSelected.PSA">
+							</div>
+						</div></td>
+					<td class="liver"><div class="inputField">
+							<label for="HepB">Hepatitis B Status</label>
+							<div class="inputs">
+								<input type="radio" name="HepB" value="1"> Hepatitis B + <input
+									type="radio" name="HepB" value="0"> Hepatitis B -
+							</div>
+						</div></td>
+
+					<td class="liver"><div class="inputField">
+							<label for="HBeAg">HBeAg Status</label>
+							<div class="inputs">
+								<input type="radio" name="HBeAg" value="1"> HBeAg + <input
+									type="radio" name="HBeAg" value="0"> HBeAg -
+							</div>
+						</div></td>
+
+
+					<td class="liver"><div class="inputField">
+							<label for="ALT">ALT</label>
+							<div class="inputs">
+								<input type="number" name="ALT" value="0" v-model="patientSelected.ALT">
+							</div>
+						</div></td>
+											<td class="liver"><div class="inputField">
+							<label for="HBVDNAlevel">HBV DNA Level</label>
+							<div class="inputs">
+								<input type="text" name="HBVDNAlevel" v-model="patientSelected.HBVDNAlevel">
+							</div>
+						</div></td>
+				</tr>
+				<tr>
+
+					<td class="lung"><div class="inputField">
+							<label for="yrsSmoker">Years Smoked</label>
+							<div class="inputs">
+								<input type="number" name="yrsSmoker" value="0" v-model="patientSelected.yrsSmoker">
+							</div>
+						</div></td>
+					<td class="lung"><div class="inputField">
+							<label for="cigsPerDay">Cigarettes per Day</label>
+							<div class="inputs">
+								<input type="number" name="cigsPerDay" value="0" v-model="patientSelected.cigsPerDay">
+							</div>
+						</div></td>
+
+					<td class="lung"><div class="inputField">
+							<label for="yrsQuit">Years Quit Smoking:</label>
+							<div class="inputs">
+								<input type="number" name="yrsQuit" value="0" v-model="patientSelected.yrsQuit">
+							</div>
+						</div></td>
+						<td></td>
+					<td>
+						<button type="button" :disabled="!inputready" @click="calc()">Calculate Risks</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+	<div class="k-container" id="results">
+		<table id="displayPane">
+			<tr>
+				<th colspan="3"><label id="sdata">EVIDENCE-BASED ADVICE</label>
+				</th>
+			</tr>
+			<tr>
+				<td class="result" id="prosResult">
+					<div class="outputField">
+						<label class="outputTitle">Prostate Cancer</label> <span
+							class="sourcelink" id="prosLink"> <a
+							href="http://www.ncbi.nlm.nih.gov/pubmed/24862395"
+							target="_blank">Source </a>
+						</span>
+						<div class="inputs">
+							<div id="prosData" @mouseover='highlighted.pros=true' @mouseout='highlighted.pros=false'>
+								<div v-if='resultready.pros'><scorecard label='HIGH GRADE RISK' :score='results.pros[2]'></scorecad></div>
+								<div v-else>Awaiting input </div>
+							</div>
+							<div id="pros-icon" :class='{opa:interp.pros}'> </div>
+							<button type="button" class='interpretBtn' @click='interpretpros' ><span v-if='interp.pros'>Hide Interpretation</span><span v-else>Interpret</span></button>
+								<div id="prosInterpret" :class='{vis:interp.pros}'>Interpretation of Prostate Cancer Risk</div>
+								<div class="source" id="prosSource"></div>
+						</div>
+					</div>
+				</td>
+
+				<td class="result" id="lungResult">
+					<div class="outputField">
+						<label class="outputTitle">Lung Cancer</label>
+						<span
+							class="sourcelink" id="lungLink"> <a
+							href="http://www.nejm.org/doi/pdf/10.1056/NEJMoa1211776"
+							target="_blank"> Source </a>
+						</span>
+						<div id="lungData">
+							<div v-if='resultready.lung'><scorecard label='SIX-YEAR RISK' :score='results.lung'></scorecad></div>
+							<div v-else>Awaiting input</div>
+						</div>
+						<div id="lung-icon" :class='{opa:interp.lung}'> </div>
+						<button type="button" class='interpretBtn' @click='interpretlung' ><span v-if='interp.lung'>Hide Interpretation</span><span v-else>Interpret</span></button>
+							<div id="lungInterpret" :class='{vis:interp.lung}'>Interpretation of Lung Cancer Risk Score</div>
+							<div class="source" id="lungSource"></div>
+						</div>
+				</td>
+
+				<td class="result" id="liverResult">
+					<div class="outputField">
+						<label class="outputTitle">Liver Cancer</label>
+						<span
+								class="sourcelink" id="liverLink">
+						<a href="http://www.ncbi.nlm.nih.gov/pubmed/21497551" target="_blank"> Source </a>
+					</span>
+						<div class="inputs">
+							<div id="liverData">
+								<div v-if='resultready.liver'><scorecard label='THREE-YEAR RISK' :score='results.liver'></scorecad></div>
+								<div v-else>Awaiting input.</div>
+							</div>
+							<div id="liver-icon" :class='{opa:interp.liver}'> </div>
+							<button type="button" class='interpretBtn' @click='interpretliver' ><span v-if='interp.liver'>Hide Interpretation</span><span v-else>Interpret</span></button>
+							<div id="liverInterpret"  :class='{vis:interp.liver}'></div>
+							<div class="source" id="liverSource"></div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="k-container">
+	  <div class="statussec">
+	    <button class="btn" type="button" data-toggle="collapse" data-target="#collapseStatus" aria-expanded="false" aria-controls="collapseStatus">
+	      APP LOG - Cancer Risk
+	    </button>
+	    <div class="collapse in" id="collapseStatus">
+	      <div id='statuslog'>
+	        <ul id='eventlog' style='list-style:none;'><li v-for='entry in eventlog' :class='entry.key'>{{entry.timestamp}} <span>{{entry.text}}</span> </li></ul>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<footer class="k-container-fluid k-container-car color-scheme text-center">
+	  <p>University of Michigan Medical School 2018</p>
+	</footer>
+</div>
+<template id='scorecard-template'>
+  <div class='scoreDisplay'>
+	  <div class='scoreTitle'>{{label}}</div>
+	  <div class='scoreResult'>{{score}}<span> %</span></div>
+  </div>
+</template>
+</body>
+	<script type="text/javascript" src="./static/js/rsci.js"></script>
+</html>

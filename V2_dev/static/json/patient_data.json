@@ -1,4 +1,4 @@
-{"patients":
+{ "patients":
   [
    {
    "age" : 65,
@@ -58,6 +58,5 @@
     "HepB" : 0,
     "gender" : "M"
     }
-
   ]
 }

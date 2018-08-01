@@ -70,6 +70,7 @@ input[type=number], input[type=text] {
 	background-color: #e3e3e3;
 	font-size: 12pt;
 }
+
 button[type=button] {
 	width: 90%;
 	border: none;
@@ -288,7 +289,6 @@ textarea#statusArea {
 #pselector input {
 	margin: 10px;
 }
-
 
 #hideBtn {
 	float:right;
