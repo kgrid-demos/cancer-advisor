@@ -1,250 +1,10 @@
-var libraryUrl = 'http://kgrid.med.umich.edu/stack2/knowledgeObject/{0}/result';
-var prosID;
-var lungID ;
-var liverID;
-var prosInterpreterId;
-var lungInterpreterId;
-var liverInterpreterId;
-var prosInput = '';
-var lungInput = '';
-var liverInput = '';
-
-function serverCheck(devServer) {
-	if (devServer) {
-
-		prosID = 'ark:/99999/fk4571p57h'; //ark:/99999/OT10164
-		lungID = 'ark:/99999/fk4jh3tk9s';  //ark:/99999/OT10155
-		liverID = 'ark:/99999/fk41g0zc28'; //ark:/99999/OT10156
-
-		prosInterpreterId = 'ark:/99999/fk4n87hh26'; //ark:/99999/OT10157
-		lungInterpreterId = 'ark:/99999/fk4805c32z'; //ark:/99999/OT10158
-		liverInterpreterId = 'ark:/99999/fk4474n87d'; //ark:/99999/OT10159
-	}
-}
-
-
-function send() {
-	initInput();
-	appendLog("Sending Patient Data to Knowledge Objects ... ");
-	prosURL = libraryUrl.replace("{0}",prosID);
-	lungURL = libraryUrl.replace("{0}",lungID);
-	liverURL = libraryUrl.replace("{0}",liverID);
-	updateResult("prosData", prosInput, prosURL,prosID);
-	updateResult("lungData", lungInput, lungURL,lungID);
-	updateResult("liverData", liverInput, liverURL,liverID);
-}
-
-function interpretProstateCancerScore() {
-
-	var htmlResult = document.getElementById("prosRawData").innerHTML;
-	var actualResult = htmlResult.replace("[", "");
-	actualResult = actualResult.replace("]", "");
-
-	var risks = actualResult.split(",");
-	var obj = new Object();
-	obj.noRisk = risks[0] ;
-	obj.lowRisk = risks[1] ;
-	obj.highRisk = risks[2];
-
-	prostateInterpreterIp =  JSON.stringify(obj);
-
-	console.log("Prostate Interpret:" + prostateInterpreterIp);
-	appendLog("Sending Risk Score to Interpreter " + prosInterpreterId);
-
-	var interpreterURL = libraryUrl.replace("{0}",prosInterpreterId);
-
-	$
-			.ajax({
-				type : 'POST',
-				// url : 'http://localhost:8080/ObjectTeller/rest/getResult', // if using a remote instance (cross origin)
-				url : interpreterURL,
-				data : prostateInterpreterIp,
-				// dataType : "json",
-                // crossDomain: true, // didn't seem to be needed (forces cross domain even if same origin?)
-				headers: { // dataType: "json" didn't work
-					'Content-Type': 'application/json',
-					'Accept': 'application/json'
-				},
-				success : function(responseData, textStatus, jqXHR) {
-				  console.log("Response");
-			console.log(responseData);
-
-					var finalOut;
-
-						appendLog("Receiving risk interpretation result from "
-								+ prosInterpreterId);
-						displayText("prosSource",responseData.source);
-						document.getElementById("prosInterpret").innerHTML = responseData.result;
-
-
-				},
-				error : function(responseData, textStatus, errorThrown) {
-					document.getElementById("prosInterpret").innerHTML = "Unable to interpret risk score. ";
-				}
-			});
-}
-
-function displayText(id, text) {
-	document.getElementById(id).innerHTML = text;
-}
-
-function displayResult(id, result) {
-    console.log("Result: ");
-     console.log(result)
-  if(typeof result == Array){
-    var multirisks = result;
-
-    console.log(multirisks);
-  } else {
-    var singleRisk = fixdecimalplace(parseFloat(result), 1);
-    console.log("Risk" + singleRisk);
-  }
-	var resultText= result+"";
-	var actualResult = resultText.replace("[", "");
-	actualResult = actualResult.replace("]", "");
-	var rawid = id.replace("Data", "RawData");
-	var risks = actualResult.split(",");
-	var title_pros = [ "NO RISK", "LOW GRADE", "HIGH GRADE" ];
-	var title_3yr = " THREE-YEAR RISK ";
-	var title_6yr = " SIX-YEAR RISK ";
-	console.log(risks.length);
-	var resultHtml = "";
-	var riskFixed;
-	for (var i = 0; i < risks.length; i++) {
-		if (risks[i] < 1) {
-			riskFixed = fixdecimalplace(parseFloat(risks[i]), 1);
-		} else {
-			riskFixed = fixdecimalplace(parseFloat(risks[i]), 1);
-
-		}
-		if (id.startsWith("pros")) {
-			title = title_pros[i];
-		} else if (id.startsWith("liver")) {
-			title = title_3yr;
-		} else {
-			title = title_6yr;
-		}
-		resultHtml = resultHtml + addScoreCard(title, riskFixed);
-	}
-	document.getElementById(rawid).innerHTML = result;
-	document.getElementById(id).innerHTML = resultHtml;
-}
-
-function addScoreCard(title, score) {
-	var startTag = "<div class='scoreDisplay'>";
-	var endTag = "</div>";
-	var titleTag = "<div class='scoreTitle'>" + title + "</div>";
-	var scoreTag = "<div class='scoreResult'>" + score
-			+ "<span> %</span></div>";
-	var card = startTag + titleTag + scoreTag + endTag;
-	return card;
-}
-function resetDisplay() {
-	$("[id$='Data']").text("Awaiting input");
-	$("[id$='Interpret']").text("");
-	$("[id$='InterpretBtn']").prop("disabled", true);
-	// $("#calc").prop("disabled", true);
-}
-function updateResult(id, input, url, objId) {
-	var div_id = "#" + id.replace("Data", "Interpret");
-	$(div_id).empty();
-	var obj = JSON.parse(input);
-	if (id.endsWith("Interpret")) {
-		appendLog("Sending Risk Score to Interpreter " + objId);
-	} else {
-		appendLog("Sending Patient Data to Risk Calculator " + objId);
-	}
-	console.log(input);
-	$.ajax({
-		type : 'POST',
-		// url : 'http://localhost:8080/ObjectTeller/rest/getResult', // if using a remote instance (cross origin)
-		url : url, // for an endpoint on the same domain
-		data : input,
-		// dataType : "json",
-		// crossDomain: true, // didn't seem to be needed (forces cross domain even if same origin?)
-		headers: { // dataType: "json" didn't work
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		},
-		success : function(responseData, textStatus, jqXHR) {
-			var out ;
-			var btn_id = "#" + id.replace("Data", "InterpretBtn");
-      console.log("Response");
-			console.log(responseData);
-
-			if (responseData.result) {
-				out = responseData.result;
-        if(out.result){
-          out=out.result;
-        }
-				$(btn_id).prop("disabled", false);
-				if (id.endsWith("Interpret")) {
-					displayText(id, out);
-					displayText(id.replace("Interpret", "Source"),responseData.source);
-					appendLog("Receiving risk interpretation result from "
-							+ objId);
-				} else {
-					displayResult(id, out);
-					appendLog("Receiving risk calculation result from "
-							+ objId);
-				}
-
-			} else {
-				if (responseData.success == 0) {
-					out = ' ' + responseData.errorMessage;
-					appendLog("Error Message from " + objId + ":"
-							+ responseData.errorMessage);
-					$(btn_id).prop("disabled", true);
-				} else {
-					out = ' ' + responseData;
-					appendLog("Error Message from " + objId + ":"
-							+ responseData);
-				}
-				document.getElementById(id).innerHTML = out;
-			}
-
-		},
-		error : function(responseData, textStatus, errorThrown) {
-			console.log(responseData);
-			var btn_id = "#" + id.replace("Data", "InterpretBtn");
-			if(responseData.status==400){
-				var out = ' ' + responseData.responseJSON.message.slice(responseData.responseJSON.message.indexOf(':')+2);
-				appendLog("Error Message from " + objId + ":"
-						+ responseData.errorMessage);
-				$(btn_id).prop("disabled", true);
-				document.getElementById(id).innerHTML = out;
-
-
-			}else{
-			var out = "Unable to retrieve risk score. ";
-			document.getElementById(id).innerHTML = out;
-		}
-		}
-	});
-}
-
-function fixdecimalplace(input, n) {
-	var fixatn = input.toFixed(n);
-	return fixatn;
-}
-
-$(document)
-		.ready(
-				function() {
-					$("[id$='Data']").hover(function() {
-						var hoveredElement = this.id.replace("Data", "");
-						$("." + hoveredElement).addClass("highlighted");
-					}, function() {
-						$(".highlighted").removeClass("highlighted");
-					});
-				});
-
 var eventBus = new Vue();
 Vue.component('scorecard', {
 	template: '#scorecard-template',
 	props: [
   	'label',
-		'score'
+		'score',
+		'haserror'
 	]
 })
 
@@ -254,15 +14,11 @@ var demo = new Vue({
   	return {
 			patientModel:{patient:{name:"",id:"",gender:"",age:"",condition:0,rsm:0,obsv:0}},
       patientSelected:{},
-			recommList:[],
 			isInit:true,
 			hasError: false,
 			error404: false,
 			autofillSelection: "",
 			eventlog:[],
-			localserver: false,
-			objLeadUrl:"/knowledgeObject/",
-      patientinput:{"pros":{},"lung":{},"liver":{}},
       inputready: false,
       scoreready: {"pros":false, "lung" : false, "liver": false},
       configjson:{},
@@ -271,13 +27,15 @@ var demo = new Vue({
       resultready:{"pros":false,"lung":false,liver:false},
       results:{"pros":[],"lung":0,liver:0},
       rawresults:{pros:[],lung:0,liver:0},
-      interp:{pros:false,lung:false,liver:false},
-      highlighted:{pros:false,lung:false,liver:false}
+      highlighted:{pros:false,lung:false,liver:false},
+			interpresult:{pros:'',lung:'',liver:''},
+			interp:{pros:false,lung:false,liver:false},
+			errors:{pros:false,lung:false,liver:false}
     }
   },
   mounted:function(){
     var self =this;
-    this.appendLog('app',"Application Event : Retrieved Sample Patient Data ...");
+    // this.appendLog('app',"Application Event : Retrieved Sample Patient Data ...");
     axios.get("./static/json/config.json").then(response=> {
       console.log(response.data)
       self.configjson =JSON.parse(JSON.stringify(response.data))
@@ -358,12 +116,12 @@ var demo = new Vue({
     },
     lunginterpinput:function(){
       var obj = {}
-      obj.risk=ths.rawresults.lung;
+      obj.risk=this.rawresults.lung;
       return obj
     },
     liverinterpinput:function(){
       var obj = {}
-      obj.risk=ths.rawresults.liver;
+      obj.risk=this.rawresults.liver;
       return obj
     },
   },
@@ -371,19 +129,31 @@ var demo = new Vue({
     autofillSelection:function(){
       var self=this;
       if(this.autofillSelection!=""){
-        // this.inputFormModel.forEach(function(e){
-        //   e.value=false;
-        // });
         var i=parseInt(this.autofillSelection)
         window.setTimeout(function(){
           self.autofill(i)}, 50);
-        this.appendLog('app',"Application Event : Autofill sample "+i+ " is selected.");
+				var j= i+1
+        this.appendLog('app',"Application Event : Autofill sample patient #"+j+ " is selected.");
       }else {
-        ths.inputready=false;
+        this.inputready=false;
       }
-    }
+    },
+		patientSelected:{
+			handler: function(){
+				this.inputready=false;
+				this.resetDisplay()
+				this.updatevalue()
+
+			},
+				deep:true
+		},
   },
   methods:{
+		updatevalue:_.debounce(function(){
+			var count = Object.keys(this.patientSelected).length
+			console.log("Key Count  "+count)
+			this.inputready=(count==18)
+				}, 500),
   	appendLog:function(key,s){
   		var ts = moment().format("ddd, MMM Do YYYY, h:mm:ss A Z");
   		console.log(ts);
@@ -398,9 +168,20 @@ var demo = new Vue({
         var container = this.$el.querySelector("#statuslog");
         container.scrollTop = container.scrollHeight;
     },
+		resetDisplay:function(){
+			this.resultready={"pros":false,"lung":false,liver:false}
+      this.results={"pros":[],"lung":0,liver:0}
+      this.rawresults={pros:[],lung:0,liver:0}
+			this.interp={"pros":false,"lung":false,liver:false}
+			this.errors={"pros":false,"lung":false,liver:false}
+			this.ir_fill("lung-icon",0)
+				this.ir_fill("liver-icon",0)
+					this.ir_fill("pros-icon",0)
+		},
     autofill:function(i){
       this.patientSelected = JSON.parse(JSON.stringify(this.patientdata.patients[i]))
       this.inputready=true
+			this.resetDisplay()
       // this.getdata();
     },
     calc:function(){
@@ -452,7 +233,12 @@ var demo = new Vue({
           console.log(response);
             self.ir_fill("liver-icon",self.results.liver/100)
         },
-        error: function(response)		{	console.log(response); },
+        error: function(response)		{
+					self.resultready.liver = false;
+					self.interpresult.liver=response.message.split(':')[1]
+					self.interp.liver=true
+					self.errors.liver=true
+					console.log(response); },
         key:'vte'
       });
     },
@@ -488,24 +274,36 @@ var demo = new Vue({
             console.log("Finished");
           })
         },
-        interpretlung:function(){
-          this.interp.lung=!this.interp.lung
-          if(this.interp.lung){
-            //call interp ko
-          }
-        },
-        interpretliver:function(){
-          this.interp.liver=!this.interp.liver
-          if(this.interp.liver){
-            //call interp ko
-          }
-        },
-        interpretpros:function(){
-          this.interp.pros=!this.interp.pros
-          if(this.interp.pros){
-            //call interp ko
-          }
-        },
+				interpretrisk:function(s){
+					var self = this
+					this.interp[s]=!this.interp[s]
+					var s_cancer = s
+					var s_input=s+'interpinput'
+					var s_key='ana'
+					if(s=='pros') {
+						s_cancer='prostate'
+					}
+					if(s=='lung'){
+						s_key='tsh'
+					}
+					if(s=='liver'){
+						s_key='vte'
+					}
+					if(this.interp[s]){
+						self.KOPost(
+						{
+							arkID: self.configjson[self.curversion].objects[s_cancer].inter_id,
+							endpoint: self.configjson[self.curversion].objects[s_cancer].inter_endpoint,
+							data: JSON.stringify(self[s_input]),
+							success: function(response) {
+									console.log(response.result)
+									self.interpresult[s]=response.result
+							},
+							error: function(response)		{	console.log(response); },
+							key:s_key
+						});
+					}
+				},
         getQueryVariable(variable)
         {
                var query = window.location.search.substring(1);

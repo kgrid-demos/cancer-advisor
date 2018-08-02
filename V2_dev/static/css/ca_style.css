@@ -23,37 +23,6 @@
 	.ft-sz-14{		font-size: 14px;	}
 	.box-header>h3{	 margin:0px;  	 }
 
-	 ul#reclist li a {
-		 float:right;
-	 }
-	 ul#reclist li .kg-rec {
- 	 		line-height:1.1em;
-			padding: 2px 15px 2px 8px;
-	 }
-	 ul#reclist li .kg-sub {
-	 line-height:1.0em;
-	}
-	ul#reclist li {
-		 line-height:1.6em;
-		 width: 95%;
-		 min-height: 50px;
-		 margin-bottom:11px;
-		 margin-left: 15px;
-     border: 1px solid #e5e5e5;
-		 background-color: #f7f7f7;
-		 opacity:0;
-		 text-align:left;
-		 padding: 5px 10px;
-			transition: opacity 0.8s ease;
-			overflow:hidden;
-	 }
-ul#reclist li.active {
-	opacity:1;
-	width:95%;
-}
-ul#reclist li.tsh{	border-left: 5px solid #c2a303; }
-ul#reclist li.vte{ 	border-left: 5px solid #78a22f; }
-ul#reclist li.ana{	border-left: 5px solid #00788a; }
 
 .kgridblue {	  background: #006496; }
 .yellow  {      background: #c2a303; }
@@ -133,7 +102,7 @@ input:focus {
 
 input[type=radio] {
 	padding: 8px 4px;
-	margin: 6px 0px 0px 14px;
+	margin: 12px 0px 0px 12px;
 }
 
 input[type=number], input[type=text] {
@@ -187,14 +156,7 @@ button[type=button]:disabled {
 	.patient-row span {
 		margin-left: 10px;
 	}
-#inputtable tr {
-	height:105px;
-	border-bottom: 1px solid #fff;
-}
-#inputtable td {
-	padding : 0px 5px;
-	color: #fff;
-}
+
 td.tsh {
 	background-color: #c2a303;
 }
@@ -209,34 +171,7 @@ td.ana, td.imd {
 	padding-left: 5px;
 	padding-right: 5px;
 }
-	#exTab1 .nav-pills, #exTab2 .nav-pills {
-		opacity: 0;
-		transition: opacity 0.8s linear;
-	}
-	#exTab1 .nav-pills:hover, #exTab2 .nav-pills:hover{
-		opacity: 1;
-	}
-	#exTab1 .nav-pills > li>a, #exTab2 .nav-pills > li>a {
-		padding: 2px 10px;
-  border-radius: 2px;
-	margin:4px 20px 4px 15px;
-}
- div#stent-div {
-		height:35px;
-		padding:5px;
-	}
-	div.initInstr {
-		padding: 100px;
-		font-size: 18px;
-		font-weight: 300;
-	}
-	.visual-field
-	{
-		border: 1px solid steelblue;
-		margin-top: 0px;
-		padding: 10px 5px;
-		height:100%;
-	}
+
 	.ht-full{
 		height: 100%;
 		min-height:544px;
@@ -249,11 +184,7 @@ td.ana, td.imd {
 	.pad-top20 {		padding-top: 20px;	}
 	.pad-top30 {		padding-top: 30px;	}
 	.pad-top40 {		padding-top: 40px;	}
-	div#input_div td {
-		font-weight:500;
-		font-size:18px;
-		line-height:1.5em;
-	}
+
 	.box-header
 	{
 		padding: 10px;
@@ -323,25 +254,6 @@ td.ana, td.imd {
 		padding: 0px 8px;
 	}
 
-  .knowledgeButton {
-    background-color: #fff;
-    border: 1px solid #006496;
-    color: #006496;
-    padding: 10px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px auto;
-    cursor: pointer;
-    width: 300px	;
-		transition:all 0.6s ease;
-}
-  .knowledgeButton:hover{
-		color:#fff;
-		background-color: #006496;
-	}
-
 div#collapseStatus {
 	background-color: #f3f3f3;
 	max-height:120px;
@@ -378,15 +290,19 @@ textarea#statusArea, div#statuslog {
 	margin: 0 auto;
 	overflow: auto;
 }
+.highlighted{
+	background-color: #ffcb05;
+	border-color: #f2f2f2;
+}
 #prosData, #lungData, #liverData {
 	width: 90%;
 	margin: 0 auto;
 	border-radius: 10px;
-	border: 1px solid #e6e6e6; height : 40px;
+	/* border: 1px solid #e6e6e6;  */
 	padding: 5px 0px 15px 0px;
 	font-size: 18px;
 	font-weight: 700;
-	background-color: #e6e6e6;
+	/* background-color: #e6e6e6; */
 	height: 460px;
 }
 #lung-icon, #liver-icon, #pros-icon {
@@ -394,7 +310,7 @@ textarea#statusArea, div#statuslog {
 	opacity:1;
 }
 #lung-icon.opa, #liver-icon.opa, #pros-icon.opa{
-	opacity:0.5;
+	opacity:0.2;
 }
 #prosInterpret, #lungInterpret, #liverInterpret {
 	height: 260px;
@@ -434,7 +350,7 @@ div.outputField {
 	border: 2px solid #e3e3e3;
 	border-radius: 6px;
 	position: relative;
-	height: 620px;
+	height: 540px;
 	width: 96%;
 	background-color: #f2f2f2;
 }
@@ -627,10 +543,8 @@ label.outputTitle {
 svg {
 	transform: scaleX(0.72) scaleY(0.72);
 	position: absolute;
-	top:65px;
-	left:-25px;
-
-
+	top:50px;
+	left:0px;
 }
 .interpretBtn {
 	position: absolute;
