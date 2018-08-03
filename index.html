@@ -3,17 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cancer Advisor</title>
-<!-- <link rel="stylesheet" href="./static/css/rsci.css" type="text/css" /> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="./static/css/ca_style.css"/>
+<link rel="stylesheet" href="./static/css/rsci.css"/>
 <script src="./static/js/moment.min.js"></script>
 <script src="./static/js/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-
-<!-- <script>window.jQuery || document.write('<script src="./static/js/jquery-3.2.1.min.js"><\/script>')</script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://kgrid-test.miserver.it.umich.edu/activator/icon/array/v0.0.1/model/resource/iconarray.js"></script>
 </head>
@@ -25,7 +22,6 @@
 	<h2>Cancer Advisor</h2></div>
 </div>
 </header>
-
 	<div class="k-container" >
 		<form name="dataForm" method="post">
 			<table>
@@ -42,7 +38,7 @@
           </th>
 				</tr>
 				<tr>
-					<td class="liver pros" :class='{highlighted:highlighted.pros | highlighted.liver}'>
+					<td class="liver prostate" :class='{highlighted:highlighted.prostate | highlighted.liver}'>
 						<div class="inputField">
 							<label for="gender">Gender</label>
 							<div class="inputs radio-group">
@@ -51,7 +47,7 @@
 							</div>
 						</div>
 					</td>
-					<td class="liver pros lung" :class='{highlighted:highlighted.pros | highlighted.liver | highlighted.lung}'>
+					<td class="liver prostate lung" :class='{highlighted:highlighted.prostate | highlighted.liver | highlighted.lung}'>
 						<div class="inputField">
 							<label for="age">Age</label>
 							<div class="inputs">
@@ -67,7 +63,7 @@
 							</div>
 						</div>
 					</td>
-					<td class="pros lung" :class='{highlighted:highlighted.pros | highlighted.lung}'><div class="inputField" >
+					<td class="prostate lung" :class='{highlighted:highlighted.prostate | highlighted.lung}'><div class="inputField" >
 							<label for="Race">Race</label>
 							<div class="inputs">
 								<select name="Race" id="Race" v-model="patientSelected.Race">
@@ -108,7 +104,7 @@
 									type="radio" name="hxLungCancer" value="0" v-model="patientSelected.hxLungCancer"> No
 							</div>
 						</div></td>
-					<td class="pros lung" :class='{highlighted:highlighted.pros | highlighted.lung}'><div class="inputField">
+					<td class="prostate lung" :class='{highlighted:highlighted.prostate | highlighted.lung}'><div class="inputField">
 							<label for="hxLungCancerFam">Family History of Cancer</label>
 							<div class="inputs">
 								<input type="radio" name="hxLungCancerFam" value="1" v-model="patientSelected.hxLungCancerFam" >
@@ -125,7 +121,7 @@
 								No
 							</div>
 						</div></td>
-					<td class="pros" :class='{highlighted:highlighted.pros}'><div class="inputField">
+					<td class="prostate" :class='{highlighted:highlighted.prostate}'><div class="inputField">
 							<label for="PriorBiop">Prior Prostate Biopsy</label>
 							<div class="inputs">
 								<input type="radio" name="PriorBiop" value="1" id="PriorBiop" v-model="patientSelected.PriorBiop">
@@ -133,7 +129,7 @@
 									id="PriorBiop" v-model="patientSelected.PriorBiop"> Positive
 							</div>
 						</div></td>
-					<td class="pros" :class='{highlighted:highlighted.pros}'><div class="inputField">
+					<td class="prostate" :class='{highlighted:highlighted.prostate}'><div class="inputField">
 							<label for="DRE">Digital Rectal Exam</label>
 							<div class="inputs">
 								<input type="radio" name="DRE" value="1" v-model="patientSelected.DRE">Suspicious<input
@@ -142,7 +138,7 @@
 						</div></td>
 				</tr>
 				<tr>
-					<td class="pros" :class='{highlighted:highlighted.pros }'><div class="inputField">
+					<td class="prostate" :class='{highlighted:highlighted.prostate }'><div class="inputField">
 							<label for="PSA">Prostate Specific Antigen in ng/mL</label>
 							<div class="inputs">
 								<input type="number" name="PSA" id="PSA" v-model="patientSelected.PSA">
@@ -155,7 +151,6 @@
 									type="radio" name="HepB" value="0" v-model="patientSelected.HepB"> Hepatitis B -
 							</div>
 						</div></td>
-
 					<td class="liver" :class='{highlighted: highlighted.liver }'><div class="inputField">
 							<label for="HBeAg">HBeAg Status</label>
 							<div class="inputs">
@@ -163,8 +158,6 @@
 									type="radio" name="HBeAg" value="0" v-model="patientSelected.HBeAg"> HBeAg -
 							</div>
 						</div></td>
-
-
 					<td class="liver" :class='{highlighted: highlighted.liver }'><div class="inputField">
 							<label for="ALT">ALT</label>
 							<div class="inputs">
@@ -220,13 +213,13 @@
 							target="_blank">Source </a>
 						</span>
 						<div class="inputs">
-							<div id="prosData" @mouseover='highlighted.pros=true' @mouseout='highlighted.pros=false'>
-								<div v-if='resultready.pros'><scorecard label='HIGH GRADE RISK' :score='results.pros[2]' :haserror='errors.pros' ></scorecad></div>
-								<div v-else>Awaiting input </div>
+							<div id="prosData" @mouseover='highlighted.prostate=true' @mouseout='highlighted.prostate=false'>
+								<div v-if='resultready.prostate'><scorecard label='HIGH GRADE RISK' :score='results.prostate[2]' :haserror='errors.prostate' ></scorecad></div>
+								<div v-else style='padding-top:20px;'><span v-if='!errors.prostate'>Awaiting input.</span><span v-else > Error .</span></div>
 							</div>
-							<div id="pros-icon" :class='{opa:interp.pros}' v-show='resultready.pros'> </div>
-							<button type="button" class='interpretBtn' :disabled="!resultready.pros" v-show='!errors.pros' @click='interpretrisk("pros")' ><span v-if='interp.pros'>Hide Interpretation</span><span v-else>Interpret</span></button>
-								<div id="prosInterpret" :class='{vis:interp.pros}' v-html='interpresult.pros'>Interpretation of Prostate Cancer Risk</div>
+							<div id="prostate-icon" :class='{opa:interp.prostate}' v-show='resultready.prostate'> </div>
+							<button type="button" class='interpretBtn' :disabled="!resultready.prostate" v-show='!errors.prostate' @click='interpretrisk("prostate")' ><span v-if='interp.prostate'>Hide Interpretation</span><span v-else>Interpret</span></button>
+								<div id="prosInterpret" :class='{vis:interp.prostate}' v-html='interpresult.prostate'>Interpretation of Prostate Cancer Risk</div>
 								<div class="source" id="prosSource"></div>
 						</div>
 					</div>
@@ -234,15 +227,13 @@
 				<td class="result" id="lungResult">
 					<div class="outputField">
 						<label class="outputTitle">Lung Cancer</label>
-						<span
-							class="sourcelink" id="lungLink"> <a
-							href="http://www.nejm.org/doi/pdf/10.1056/NEJMoa1211776"
-							target="_blank"> Source </a>
+						<span	class="sourcelink" id="lungLink">
+							<a href="http://www.nejm.org/doi/pdf/10.1056/NEJMoa1211776"	target="_blank"> Source </a>
 						</span>
 						<div class="inputs">
 						<div id="lungData"  @mouseover='highlighted.lung=true' @mouseout='highlighted.lung=false'>
 							<div v-if='resultready.lung'><scorecard label='SIX-YEAR RISK' :score='results.lung' :haserror='errors.lung'></scorecad></div>
-							<div v-else>Awaiting input</div>
+							<div v-else style='padding-top:20px;' ><span v-if='!errors.lung'>Awaiting input.</span><span v-else> Error .</span></div>
 						</div>
 						<div id="lung-icon" :class='{opa:interp.lung}' v-show='resultready.lung'> </div>
 						<button type="button" class='interpretBtn' :disabled="!resultready.lung" v-show='!errors.lung' @click='interpretrisk("lung")' ><span v-if='interp.lung'>Hide Interpretation</span><span v-else>Interpret</span></button>
@@ -259,8 +250,8 @@
 					</span>
 						<div class="inputs">
 							<div id="liverData"  @mouseover='highlighted.liver=true' @mouseout='highlighted.liver=false'>
-								<div v-if='resultready.liver'><scorecard label='THREE-YEAR RISK' :score='results.liver' :haserror='errors.liver'></scorecad></div>
-								<div v-else>Awaiting input.</div>
+								<div v-if='resultready.liver '><scorecard label='THREE-YEAR RISK' :score='results.liver' :haserror='errors.liver'></scorecad></div>
+								<div v-else style='padding-top:20px;'><span v-if='!errors.liver'>Awaiting input.</span><span v-else> Error .</span></div>
 							</div>
 							<div id="liver-icon" :class='{opa:interp.liver}' v-show='resultready.liver'> </div>
 							<button type="button" class='interpretBtn' :disabled="!resultready.lung"  v-show='!errors.liver' @click='interpretrisk("liver")' ><span v-if='interp.liver'>Hide Interpretation</span><span v-else>Interpret</span></button>

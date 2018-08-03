@@ -12,25 +12,23 @@ var demo = new Vue({
 	el: '#app',
 	data: function(){
   	return {
-			patientModel:{patient:{name:"",id:"",gender:"",age:"",condition:0,rsm:0,obsv:0}},
       patientSelected:{},
-			isInit:true,
 			hasError: false,
 			error404: false,
 			autofillSelection: "",
 			eventlog:[],
       inputready: false,
-      scoreready: {"pros":false, "lung" : false, "liver": false},
+      scoreready: {"prostate":false, "lung" : false, "liver": false},
       configjson:{},
       patientdata:{},
       curversion:"v1",
-      resultready:{"pros":false,"lung":false,liver:false},
-      results:{"pros":[],"lung":0,liver:0},
-      rawresults:{pros:[],lung:0,liver:0},
-      highlighted:{pros:false,lung:false,liver:false},
-			interpresult:{pros:'',lung:'',liver:''},
-			interp:{pros:false,lung:false,liver:false},
-			errors:{pros:false,lung:false,liver:false}
+      resultready:{"prostate":false,"lung":false,liver:false},
+      results:{"prostate":[],"lung":0,liver:0},
+      rawresults:{prostate:[],lung:0,liver:0},
+      highlighted:{prostate:false,lung:false,liver:false},
+			interpresult:{prostate:'',lung:'',liver:''},
+			interp:{prostate:false,lung:false,liver:false},
+			errors:{prostate:false,lung:false,liver:false},
     }
   },
   mounted:function(){
@@ -66,7 +64,7 @@ var demo = new Vue({
       if(this.autofillSelection!=''){
         this.inputtemplate.forEach(function(e){
           if(e.liver){
-              console.log(e.fieldname + ' '+e.pros +' '+e.lung+' '+e.liver)
+              console.log(e.fieldname + ' '+e.prostate +' '+e.lung+' '+e.liver)
             obj[e.fieldname]=self.patientSelected[e.fieldname]
           }
         })
@@ -79,7 +77,7 @@ var demo = new Vue({
       if(this.autofillSelection!=''){
         this.inputtemplate.forEach(function(e){
           if(e.lung){
-              console.log(e.fieldname + ' '+e.pros +' '+e.lung+' '+e.liver)
+              console.log(e.fieldname + ' '+e.prostate +' '+e.lung+' '+e.liver)
             obj[e.fieldname]=self.patientSelected[e.fieldname]
           }
         })
@@ -92,8 +90,8 @@ var demo = new Vue({
       var obj = {}
       if(this.autofillSelection!=''){
         this.inputtemplate.forEach(function(e){
-          if(e.pros){
-            console.log(e.fieldname + ' '+e.pros +' '+e.lung+' '+e.liver)
+          if(e.prostate){
+            console.log(e.fieldname + ' '+e.prostate +' '+e.lung+' '+e.liver)
             obj[e.fieldname]=self.patientSelected[e.fieldname]
           }
         })
@@ -107,11 +105,11 @@ var demo = new Vue({
       }
       return obj
     },
-    prosinterpinput:function(){
+    prostateinterpinput:function(){
       var obj = {}
-      obj.noRisk = this.rawresults.pros[0] ;
-    	obj.lowRisk = this.rawresults.pros[1] ;
-    	obj.highRisk = this.rawresults.pros[2];
+      obj.noRisk = this.rawresults.prostate[0] ;
+    	obj.lowRisk = this.rawresults.prostate[1] ;
+    	obj.highRisk = this.rawresults.prostate[2];
       return obj
     },
     lunginterpinput:function(){
@@ -143,20 +141,58 @@ var demo = new Vue({
 				this.inputready=false;
 				this.resetDisplay()
 				this.updatevalue()
-
 			},
 				deep:true
 		},
   },
   methods:{
+		riskconfig:function(s){
+			var obj ={}
+			var self=this
+			var riskinput=s+'input'
+			var visicon=s+'-icon'
+			obj.arkID = self.configjson[self.curversion].objects[s].risk_id
+			obj.endpoint = self.configjson[self.curversion].objects[s].risk_endpoint
+			obj.data= JSON.stringify(self[riskinput])
+			obj.success= function(response) {
+				self.resultready[s] = true;
+				switch(s){
+					case 'lung':
+						self.rawresults[s]=response.result
+						self.results[s]=self.rawresults[s].toFixed(1)
+						self.ir_fill(visicon,self.results[s]/100)
+						break
+					case 'liver':
+						self.rawresults[s]=response.result.result
+						self.results[s]=self.rawresults[s].toFixed(1)
+						self.ir_fill(visicon,self.results[s]/100)
+						break;
+					case 'prostate':
+					  self.rawresults[s]=JSON.parse(JSON.stringify(response.result.result))
+						response.result.result.forEach(function(e){
+							var x=e.toFixed(1)
+							self.results[s].push(x)
+						})
+						self.ir_fill(visicon,self.results[s][2]/100)
+						break
+				}
+			}
+			obj.error = function(response)		{
+				self.resultready[s] = false;
+				self.interpresult[s]=response.message.split(':')[1]
+				self.interp[s]=true
+				self.errors[s]=true
+			}
+			obj.key=s
+			return obj
+		},
 		updatevalue:_.debounce(function(){
-			var count = Object.keys(this.patientSelected).length
-			console.log("Key Count  "+count)
-			this.inputready=(count==18)
-				}, 500),
+				var count = Object.keys(this.patientSelected).length
+				this.inputready=(count==18)
+			}, 500),
   	appendLog:function(key,s){
   		var ts = moment().format("ddd, MMM Do YYYY, h:mm:ss A Z");
-  		console.log(ts);
+  		// console.log(ts);
   		var entry = {};
   		entry.key=key;
   		entry.timestamp = ts;
@@ -169,128 +205,65 @@ var demo = new Vue({
         container.scrollTop = container.scrollHeight;
     },
 		resetDisplay:function(){
-			this.resultready={"pros":false,"lung":false,liver:false}
-      this.results={"pros":[],"lung":0,liver:0}
-      this.rawresults={pros:[],lung:0,liver:0}
-			this.interp={"pros":false,"lung":false,liver:false}
-			this.errors={"pros":false,"lung":false,liver:false}
+			this.resultready={"prostate":false,"lung":false,liver:false}
+      this.results={"prostate":[],"lung":0,liver:0}
+      this.rawresults={prostate:[],lung:0,liver:0}
+			this.interp={"prostate":false,"lung":false,liver:false}
+			this.errors={"prostate":false,"lung":false,liver:false}
 			this.ir_fill("lung-icon",0)
 				this.ir_fill("liver-icon",0)
-					this.ir_fill("pros-icon",0)
+					this.ir_fill("prostate-icon",0)
 		},
     autofill:function(i){
       this.patientSelected = JSON.parse(JSON.stringify(this.patientdata.patients[i]))
       this.inputready=true
 			this.resetDisplay()
-      // this.getdata();
     },
     calc:function(){
       var self=this;
   		self.hasError =false;
   		self.error404=false;
-      self.KOPost(
-      {
-        arkID: self.configjson[self.curversion].objects.lung.risk_id,
-        endpoint: self.configjson[self.curversion].objects.lung.risk_endpoint,
-        data: JSON.stringify(self.lunginput),
-        success: function(response) {
-          self.resultready.lung = true;
-          self.rawresults.lung=response.result
-          self.results.lung=response.result.toFixed(1)
-          console.log(response);
-          self.ir_fill("lung-icon",self.results.lung/100)
-        },
-        error: function(response)		{	console.log(response); },
-        key:'tsh'
-      });
-      self.KOPost(
-      {
-        arkID: self.configjson[self.curversion].objects.prostate.risk_id,
-        endpoint: self.configjson[self.curversion].objects.prostate.risk_endpoint,
-        data: JSON.stringify(self.prostateinput),
-        success: function(response) {
-          self.resultready.pros = true;
-          self.rawresults.pros=JSON.parse(JSON.stringify(response.result.result))
-          response.result.result.forEach(function(e){
-            var x=e.toFixed(1)
-            self.results.pros.push(x)
-          })
-            self.ir_fill("pros-icon",self.results.pros[2]/100)
-          console.log(response);
-        },
-        error: function(response)		{	console.log(response); },
-        key:'ana'
-      });
-      self.KOPost(
-      {
-        arkID: self.configjson[self.curversion].objects.liver.risk_id,
-        endpoint: self.configjson[self.curversion].objects.liver.risk_endpoint,
-        data: JSON.stringify(self.liverinput),
-        success: function(response) {
-          self.resultready.liver = true;
-          self.rawresults.liver=response.result.result
-          self.results.liver=response.result.result.toFixed(1)
-          console.log(response);
-            self.ir_fill("liver-icon",self.results.liver/100)
-        },
-        error: function(response)		{
-					self.resultready.liver = false;
-					self.interpresult.liver=response.message.split(':')[1]
-					self.interp.liver=true
-					self.errors.liver=true
-					console.log(response); },
-        key:'vte'
-      });
+      self.KOPostaxios(self.riskconfig('lung'));
+      self.KOPostaxios(self.riskconfig('prostate'));
+      self.KOPostaxios(self.riskconfig('liver'));
     },
-    KOPost:function(instr)
-      {
-        var self=this;
-        var set =
-          {
-            "url": this.activator_url+ instr.arkID + instr.endpoint,
-            "method": "POST",
-            "headers": {
-              "content-type": "application/json",
-            },
-            "data": instr.data
-          }
-          self.appendLog(instr.key, "K-GRID Service Request - Sending Patient Data to Knowledge Object: " + instr.arkID);
-          console.log("AJAX SETTINGS: ", set)
-          $.ajax(set).done(function(data, textStatus, jqXHR)
-          {
-            //  console.log(jqXHR);
-            instr.success(data);
-            self.appendLog(instr.key, "K-GRID Service Response - Recommendation results returned from Knowledge Object: " + instr.arkID);
-          }).fail(function(jqXHR, textStatus, errorThrown){
-            console.log("error");
-            console.log(jqXHR);
-            self.hasError = true;
-            if(jqXHR.statusText=='error'&&jqXHR.status==404){
-              self.error404=true;
-            }
-            instr.error(jqXHR.responseJSON);
-            self.appendLog(instr.key, "K-GRID Service Response - Error returned from Knowledge Object: " + instr.arkID);
-          }).always(function(){
-            console.log("Finished");
-          })
-        },
-				interpretrisk:function(s){
+		KOPostaxios:function(instr){
+			var self = this
+			var config = {
+				method:'post',
+				url:this.activator_url+ instr.arkID + instr.endpoint,
+				"headers": {
+					"content-type": "application/json",
+				},
+				"data": instr.data
+			}
+			self.appendLog(instr.key, "K-GRID Service Request - Sending Patient Data to Knowledge Object: " + instr.arkID);
+			axios(config)
+				.then(function(response){
+					instr.success(response.data);
+					self.appendLog(instr.key, "K-GRID Service Response - Recommendation results returned from Knowledge Object: " + instr.arkID);
+				})
+				.catch(function(error){
+					self.hasError = true;
+					if(error.response.status==404){
+						self.error404=true;
+					}
+					if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    }
+					instr.error(error.response.data);
+					self.appendLog('err', "K-GRID Service Response - Error returned from Knowledge Object: " + instr.arkID);
+				})
+		},
+		interpretrisk:function(s){
 					var self = this
 					this.interp[s]=!this.interp[s]
 					var s_cancer = s
 					var s_input=s+'interpinput'
-					var s_key='ana'
-					if(s=='pros') {
-						s_cancer='prostate'
-					}
-					if(s=='lung'){
-						s_key='tsh'
-					}
-					if(s=='liver'){
-						s_key='vte'
-					}
 					if(this.interp[s]){
-						self.KOPost(
+						self.KOPostaxios(
 						{
 							arkID: self.configjson[self.curversion].objects[s_cancer].inter_id,
 							endpoint: self.configjson[self.curversion].objects[s_cancer].inter_endpoint,
@@ -300,7 +273,7 @@ var demo = new Vue({
 									self.interpresult[s]=response.result
 							},
 							error: function(response)		{	console.log(response); },
-							key:s_key
+							key:s
 						});
 					}
 				},

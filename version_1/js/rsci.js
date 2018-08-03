@@ -202,7 +202,7 @@ function displayResult(id, result) {
 			riskFixed = fixdecimalplace(parseFloat(risks[i]), 1);
 
 		}
-		if (id.startsWith("pros")) {
+		if (id.startsWith("prostate")) {
 			title = title_pros[i];
 		} else if (id.startsWith("liver")) {
 			title = title_3yr;
@@ -440,7 +440,7 @@ $(document)
 								} else if (btn_id.startsWith("lung")) {
 									interpreterId = lungInterpreterId;
 									interpreterURL = libraryUrl.replace("{0}",lungInterpreterId);
-								} else if (btn_id.startsWith("pros")) {
+								} else if (btn_id.startsWith("prostate")) {
 									interpreterId = prosInterpreterId;
 								}
 
@@ -450,7 +450,7 @@ $(document)
 								var interpreterInput = JSON.stringify(obj);
 
 								console.log(interpreterInput);
-								if (!(btn_id.startsWith("pros"))) {
+								if (!(btn_id.startsWith("prostate"))) {
 									updateResult(id, interpreterInput , interpreterURL,interpreterId);
 								}
 							});
