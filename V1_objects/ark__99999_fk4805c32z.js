@@ -1,19 +1,33 @@
+const args = process.argv;
+var commandLine = args[2];
+var object = {"risk":commandLine};
+console.info(interpretLungCancerRisk(object));
+
+
+
 
 function interpretLungCancerRisk (info)
 {
 
 
- var risk = float (info['4']);
+ var risk = parseFloat (info['risk']);
+ console.log(risk);
 
 var output = "";
 
- if (risk > 1.35)
+if (isNaN(risk))
+{
+  output = 'Not a valid input.';
+}
+
+
+else if (risk > 1.35)
 
  {
-output= [];
 
 
-console.log('RECOMMENDATION: Consider lung cancer screening. Because the chance is greater than 1.35%, engaging in a process of shared decision making about lung cancer screening should be considered, during which other factors, including the health status and disposition of the individual, should be taken into account.');
+
+output='<div class="interpretation"> <p style="font-weight: bold;">RECOMMENDATION: Consider lung cancer screening.</p> <p>Because the chance is <b>greater than 1.35%</b>, engaging in a process of shared decision making about lung cancer screening should be considered, during which other factors, including the health status and disposition of the individual, should be taken into account.</p> </div>';
 
  }
 
@@ -21,13 +35,11 @@ console.log('RECOMMENDATION: Consider lung cancer screening. Because the chance 
 
  {
 
- output= [];
 
-console.log ('RECOMMENDATION: Lung cancer screening is not advised. Because this chance is <b>lower than 1.35% lung cancer screening is not indicated as the risk of lung cancer screening exceeds its likely benefits.');
+output='<div class="interpretation"> <p style="font-weight: bold;">RECOMMENDATION: Lung cancer screening is not advised.</p> <p>Because this chance is <b>lower than 1.35%</b>, lung cancer screening is not indicated as the risk of lung cancer screening exceeds its likely benefits.</p></div>';
 
+}
 
- }
-
-  return output;
+return output;
 
 }
