@@ -1,3 +1,3 @@
 ### Info
 
-[Back to app](http://kgrid.org/cancer-advisor)
+[Back to app](http://kgrid-demosgithub.io/cancer-advisor)
