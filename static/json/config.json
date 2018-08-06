@@ -46,7 +46,7 @@
   },
   "v2": {
     "library_url":"https://kgrid-library.herokuapp.com",
-    "activator_url":"http://localhost:8080/",
+    "activator_url":"https://kgrid-activator.herokuapp.com/",
     "objects":{
       "prostate":{
         "risk_id":"99999/fk4571p57h/v0.0.2",
