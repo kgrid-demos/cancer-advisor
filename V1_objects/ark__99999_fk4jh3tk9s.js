@@ -1,4 +1,4 @@
-var info = {"age":"56","bmi":"23.4","cigsPerDay":"10","edLevel":"1","ethnicity":"1","hxLungCancer":"1","hxLungCancerFam":"0","hxNonLungCancerDz":"1","yrsQuit":"10","yrsSmoker":"10"};
+var info = {"age":"65","bmi":"27","cigsPerDay":"8","edLevel":"1","ethnicity":"1","hxLungCancer":"1","hxLungCancerFam":"1","hxNonLungCancerDz":"1","yrsQuit":"5","yrsSmoker":"20"};
 console.info(getSixyearprobability(info));
 
 function getSixyearprobability(info)
@@ -13,7 +13,9 @@ function getSixyearprobability(info)
     var familyhistory = parseInt(info['hxLungCancerFam']);
     var race = parseInt(info['ethnicity']);
 
-    if (info['yrsQuit'] >= 10)
+    var   op = {'success':'','errorMessage':'','result':''};
+
+    if (info['yrsQuit'] > 0)
     {
        var currentsmokingstatus = 0;
     }
@@ -27,8 +29,8 @@ function getSixyearprobability(info)
     var currentyearsquit = parseInt(info['yrsQuit']);
 
 
-    Coeffs=[-1, 0.0778868,-0.0812744,-0.0274194,0.3553063,0.4589971,0.587185,0.2597431,-1.822606,0.0317321,-0.0308572];
-    Racecoeffs=[-1, 0,0.3944778,-0.7434744,-0.466585,0,1.027152];
+    var Coeffs=[-1, 0.0778868,-0.0812744,-0.0274194,0.3553063,0.4589971,0.587185,0.2597431,-1.822606,0.0317321,-0.0308572];
+    var Racecoeffs=[-1, 0,0.3944778,-0.7434744,-0.466585,0,1.027152];
 
 
 
@@ -64,7 +66,7 @@ function getSixyearprobability(info)
     Smokingstatuscontribution= currentsmokingstatus*Coeffs[7];
 
 
-    if (averageCPD >=10)
+    if (averageCPD >= 0)
     {
         CPDcontribution = ( Math.pow((averageCPD / 10.0), -1 )-CPDcentervalue)*Coeffs[8];
     }
@@ -89,6 +91,10 @@ function getSixyearprobability(info)
 
     Sixyearprobabilitypercentage = 100 * Math.exp(Sumvalues)/(1+Math.exp(Sumvalues));
 
-    return parseFloat(Sixyearprobabilitypercentage);
+    op['result'] =  parseFloat(Sixyearprobabilitypercentage);
+    op['success'] = 1;
+    op['errorMessage'] = '-';
+
+    return op;
 
     }

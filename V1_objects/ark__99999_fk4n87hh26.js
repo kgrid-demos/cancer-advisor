@@ -38,6 +38,6 @@ function interpretProstateCancerRisk(info)
 
 }
 
-    return interpretation;
+    return '<div class="interpretation">'+interpretation+'</div>'
 
 }
