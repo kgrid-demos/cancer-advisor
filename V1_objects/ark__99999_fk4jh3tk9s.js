@@ -1,5 +1,5 @@
-
-
+var info = {"age":"56","bmi":"23.4","cigsPerDay":"10","edLevel":"1","ethnicity":"1","hxLungCancer":"1","hxLungCancerFam":"0","hxNonLungCancerDz":"1","yrsQuit":"10","yrsSmoker":"10"};
+console.info(getSixyearprobability(info));
 
 function getSixyearprobability(info)
 {
@@ -10,10 +10,10 @@ function getSixyearprobability(info)
     var bmi = parseFloat(info['bmi']);
     var copd = parseInt(info['hxNonLungCancerDz']);
     var personalhistory = parseInt(info['hxLungCancer']);
-    var familyhistory = parseInt(info['hxLungCancerFam']));
+    var familyhistory = parseInt(info['hxLungCancerFam']);
     var race = parseInt(info['ethnicity']);
 
-    if info['yrsQuit']
+    if (info['yrsQuit'] >= 10)
     {
        var currentsmokingstatus = 0;
     }
@@ -64,7 +64,7 @@ function getSixyearprobability(info)
     Smokingstatuscontribution= currentsmokingstatus*Coeffs[7];
 
 
-    if averageCPD
+    if (averageCPD >=10)
     {
         CPDcontribution = ( Math.pow((averageCPD / 10.0), -1 )-CPDcentervalue)*Coeffs[8];
     }
@@ -87,7 +87,7 @@ function getSixyearprobability(info)
     Sumvalues = Modelconstant+Agecontribution+Educationcontribution+Bmicontribution+Copdcontribution+Personalhistorycontribution+Familyhistorycontribution+Smokingstatuscontribution+CPDcontribution+Smokingdurationcontribution+Smokingcessationcontribution+Racecontribution;
 
 
-    Sixyearprobabilitypercentage = 100 * exp(Sumvalues)/(1+exp(Sumvalues));
+    Sixyearprobabilitypercentage = 100 * Math.exp(Sumvalues)/(1+Math.exp(Sumvalues));
 
     return parseFloat(Sixyearprobabilitypercentage);
 
