@@ -20,7 +20,7 @@
     "HepB" : 1,
     "gender" : "M"
     },{
-    "age" :56,
+    "age" :60,
     "Race" : 1,
     "DRE" : 1,
     "PSA" : 1,
@@ -33,9 +33,9 @@
     "yrsSmoker" : 10,
     "cigsPerDay" : 10,
     "yrsQuit" : 20,
-    "HBVDNAlevel" : 300,
+    "HBVDNAlevel" : 14200,
     "ALT" : 47,
-    "HBeAg" : 0,
+    "HBeAg" : 1,
     "HepB" : 1,
     "gender" : "M"
     },{

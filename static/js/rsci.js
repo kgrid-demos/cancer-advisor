@@ -21,7 +21,7 @@ var demo = new Vue({
       scoreready: {"prostate":false, "lung" : false, "liver": false},
       configjson:{},
       patientdata:{},
-      curversion:"v1",
+      curversion:"v2",
       resultready:{"prostate":false,"lung":false,liver:false},
       results:{"prostate":[],"lung":0,liver:0},
       rawresults:{prostate:[],lung:0,liver:0},
@@ -33,10 +33,11 @@ var demo = new Vue({
   },
   mounted:function(){
     var self =this;
-    // this.appendLog('app',"Application Event : Retrieved Sample Patient Data ...");
+
     axios.get("./static/json/config.json").then(response=> {
       console.log(response.data)
       self.configjson =JSON.parse(JSON.stringify(response.data))
+			self.appendLog('app',"Application Ready. KGrid Activator is configured as: "+self.activator_url);
       axios.get("./static/json/patient_data.json").then(resp=> {
         self.patientdata=JSON.parse(JSON.stringify(resp.data))
       }).catch(error=>{
@@ -107,9 +108,9 @@ var demo = new Vue({
     },
     prostateinterpinput:function(){
       var obj = {}
-      obj.noRisk = this.rawresults.prostate[0] ;
-    	obj.lowRisk = this.rawresults.prostate[1] ;
-    	obj.highRisk = this.rawresults.prostate[2];
+      obj.noRisk = this.rawresults.prostate.noRisk ;
+    	obj.lowRisk = this.rawresults.prostate.lowRisk ;
+    	obj.highRisk = this.rawresults.prostate.highRisk;
       return obj
     },
     lunginterpinput:function(){
@@ -155,10 +156,15 @@ var demo = new Vue({
 			obj.endpoint = self.configjson[self.curversion].objects[s].risk_endpoint
 			obj.data= JSON.stringify(self[riskinput])
 			obj.success= function(response) {
-				self.resultready[s] = true;
-				switch(s){
+				if(response.result.success==1){
+					self.resultready[s] = true;
+					switch(s){
 					case 'lung':
-						self.rawresults[s]=response.result
+						if(self.curversion=='v1'){
+							self.rawresults[s]=response.result
+						}else {
+ 						  self.rawresults[s]=response.result.result
+						}
 						self.results[s]=self.rawresults[s].toFixed(1)
 						self.ir_fill(visicon,self.results[s]/100)
 						break
@@ -168,13 +174,19 @@ var demo = new Vue({
 						self.ir_fill(visicon,self.results[s]/100)
 						break;
 					case 'prostate':
-					  self.rawresults[s]=JSON.parse(JSON.stringify(response.result.result))
-						response.result.result.forEach(function(e){
-							var x=e.toFixed(1)
+					  self.rawresults[s]=JSON.parse(response.result.result)
+						for (var key in self.rawresults[s]){
+							var x= self.rawresults[s][key].toFixed(1)
 							self.results[s].push(x)
-						})
+						}
 						self.ir_fill(visicon,self.results[s][2]/100)
 						break
+					}
+				}else{
+					self.resultready[s] = false;
+					self.interpresult[s]=response.result.errorMessage
+					self.interp[s]=true
+					self.errors[s]=true
 				}
 			}
 			obj.error = function(response)		{
@@ -241,7 +253,7 @@ var demo = new Vue({
 			axios(config)
 				.then(function(response){
 					instr.success(response.data);
-					self.appendLog(instr.key, "K-GRID Service Response - Recommendation results returned from Knowledge Object: " + instr.arkID);
+					self.appendLog(instr.key, "K-GRID Service Response - Response results returned from Knowledge Object: " + instr.arkID);
 				})
 				.catch(function(error){
 					self.hasError = true;

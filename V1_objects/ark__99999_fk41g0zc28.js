@@ -2,7 +2,7 @@
 
 
 
-var info = {'age': '60','gender': 'M','ALT': '47','HBeAg': '1','HBVDNAlevel': '99999', 'HepB':'1'};
+var info = {'age': '60','gender': 'M','ALT': '1','HBeAg': '1','HBVDNAlevel': '99999', 'HepB':'1'};
 console.info(getThreeYearHCCRisk(info));
 
 function getThreeYearHCCRisk(info)

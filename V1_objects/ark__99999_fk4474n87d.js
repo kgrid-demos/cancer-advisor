@@ -39,7 +39,7 @@ function interpretLiverCancerRisk(info)
         output ='<p style="font-weight: bold;"> ALERT: A 3 year risk of hepatocelluar cancer of more than 30% may indicate a problem with the risk scoring calculation itself. Check all patient data and reassess hepatocellular risk to confirm. Assuming that the risk is more than 30%, which is very high, then antiviral treatment is highly recommended.</p> <p style="font-weight: bold;"> TREATMENT RECOMMENDATION: Antiviral treatment is recommended.</p> <p>MONITORING RECOMMENDATION: Monitor the impact and effectiveness of antiviral treatment every month by reassessing liver function (ALT), Hepatitis B e Antigen status (HBeAG), and Hepatitis B DNA virus copy counts (HBV-DNA). If improvements are apparent, consider changing the monitoring frequency to every 3 months.</p>';
     }
 
-    return output;
+    return '<div class="interpretation">'+output+'</div>';
 
 
 }
