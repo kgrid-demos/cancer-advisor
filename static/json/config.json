@@ -45,8 +45,8 @@
 
   },
   "v2": {
-    "library_url":"https://kgrid.med.umich.edu/library",
-    "activator_url":"https://kgrid.med.umich.edu/activator/",
+    "library_url":"https://kgrid-test.miserver.it.umich.edu/library",
+    "activator_url":"https://kgrid-test.miserver.it.umich.edu/activator/",
     "objects":{
       "prostate":{
         "risk_id":"99999/fk4571p57h/v0.0.2",
