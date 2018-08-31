@@ -41,13 +41,13 @@ ul#eventlog li {
 ul#eventlog li.app span{
 	color: #364496;
 }
-ul#eventlog li.lung span{
+ul#eventlog li.lung span, a.lung{
 	color: #c2a303;
 }
-ul#eventlog li.liver span{
+ul#eventlog li.liver span, a.liver{
 	color: #78a22f;
 }
-ul#eventlog li.prostate span{
+ul#eventlog li.prostate span, a.prostate{
 	color: #00788a;
 }
 ul#eventlog li.err span{
