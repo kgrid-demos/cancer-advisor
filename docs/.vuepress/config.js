@@ -1,6 +1,7 @@
 module.exports = {
   base: '/cancer-advisor/guide/',
   title: 'Cancer Advisor',
+  dest: './guide',
   themeConfig: {
     logo: '/images/kgrid-logo.png',
     repo: 'kgrid-demos/cancer-advisor',

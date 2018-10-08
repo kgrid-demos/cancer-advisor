@@ -16,13 +16,13 @@ The app connects with the KGrid Sandbox instances of [Activator](https://activat
 
   * Choose one of three preset patient samples;
 
-  * The app will load the sample patient data and enable the button of `Calculate Risks`
+  * The app will load the sample patient data;
 
-  * Click on  `Calculate Risks` to initiate the interaction with Sandbox KGird Activator
+  * Click on   <button style='background-color:#364496;color:#fff;padding:6px 10px;'>Calculate Risks</button> to initiate the interaction with Sandbox KGird Activator
 
   * The cancer risk scores will be computed by the risk score Knowledge Objects and displayed along with the visualization using [Icon Array](https://kgrid-objects.github.io/icon-array/)
 
-  * Click on `Interpret` in each cancer risk advice panel, the respective risk score will be interpreted using the interpretation Knowledge Objects.
+  * Click on  <button style='background-color:#364496;color:#fff;padding:6px 10px;'>Interpret</button> in each cancer risk advice panel, the respective risk score will be interpreted using the interpretation Knowledge Objects.
 
 Note:
 
