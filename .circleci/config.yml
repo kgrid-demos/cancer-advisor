@@ -23,9 +23,13 @@ jobs:
         - v1-dependencies-
 
     - run:
+         name: Install dependencies
+         command: npm install
+
+    - run:
         name: Deploy VuePress GitHub Pages
         command: |
-              chmod 777 .circleci/vuepress_deploy.sh && .circleci/vuepress_deploy.sh 
+              chmod 777 .circleci/vuepress_deploy.sh && .circleci/vuepress_deploy.sh
 
     - store_artifacts:
           path: dist
