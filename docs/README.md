@@ -14,7 +14,7 @@ The app connects with the KGrid Sandbox instances of [Activator](https://activat
 
 ## Usage
 
-  * Choose one of three preset patient samples;
+  * Choose one of three preset patient sample sets;
 
   * The app will load the sample patient data;
 
