@@ -4,3 +4,4 @@ build
 .project
 /target/
 /node_modules
+/docs/.vuepress/dist

@@ -31,3 +31,6 @@ Note:
   1. Hovering the mouse over the calculated risk score will highlight the input data used for the risk model.
 
   1. Patient data can be manually adjusted and the risk scores can be recalculated.
+
+
+  <div style="text-align:center;"><button style='background-color:green; color:#fff;padding:16px 10px;font-size: 1.3em;'><a href='https://demo.kgrid.org/cancer-advisor/app'  style='color:#fff;'>LAUNCH DEMO</a></button></div>
