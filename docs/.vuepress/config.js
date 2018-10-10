@@ -6,6 +6,7 @@ module.exports = {
     repo: 'kgrid-demos/cancer-advisor',
     lastUpdated: 'Last Updated',
     nav: [
+      { text: 'KGrid.org', link: 'https://kgrid.org' },
       { text: 'Guide', link: '/' },
       // { text: 'Develop', link: '/develop/' },
       { text: 'Cancer Risk Collection', link: 'https://kgrid-objects.github.io/cancer-risk-collection'},
