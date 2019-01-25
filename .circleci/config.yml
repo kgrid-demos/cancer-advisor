@@ -29,10 +29,12 @@ jobs:
     - run:
         name: Deploy VuePress GitHub Pages
         command: |
+           if [ $RELEASE ]; then
               chmod 777 .circleci/vuepress_deploy.sh && .circleci/vuepress_deploy.sh
+           fi
 
     - store_artifacts:
-          path: dist
+          path: docs/.vuepress/dist/app
 
 workflows:
   version: 2
