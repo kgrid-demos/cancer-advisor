@@ -45,25 +45,25 @@
 
   },
   "v2": {
-    "library_url":"https://library.kgrid.org/",
-    "activator_url":"https://activator.kgrid.org/",
+    "library_url":"https://kgrid-library.herokuapp.com/",
+    "activator_url":"https://kgrid-activator.herokuapp.com/",
     "objects":{
       "prostate":{
-        "risk_id":"99999/fk4571p57h/v0.0.3",
+        "risk_id":"99999/fk4571p57h",
         "risk_endpoint":"/ProstateRiskCalc",
-        "inter_id":"99999/fk4n87hh26/v0.0.3",
+        "inter_id":"99999/fk4n87hh26",
         "inter_endpoint":"/interpretProstateCancerRisk"
       },
       "lung":{
-        "risk_id":"99999/fk4jh3tk9s/v0.0.3",
+        "risk_id":"99999/fk4jh3tk9s",
         "risk_endpoint":"/getSixyearprobability",
-        "inter_id":"99999/fk4805c32z/v0.0.3",
+        "inter_id":"99999/fk4805c32z",
         "inter_endpoint":"/interpretLungCancerRisk"
       },
       "liver":{
-        "risk_id":"99999/fk41g0zc28/v0.0.3",
+        "risk_id":"99999/fk41g0zc28",
         "risk_endpoint":"/getThreeYearHCCRisk",
-        "inter_id":"99999/fk4474n87d/v0.0.3",
+        "inter_id":"99999/fk4474n87d",
         "inter_endpoint":"/interpretLiverCancerRisk"
       }
     },

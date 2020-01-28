@@ -33,7 +33,7 @@ var demo = new Vue({
   },
   mounted:function(){
     var self =this;
-
+		console.log("Updated on Jan. 28, 2020")
     axios.get("./static/json/config.json").then(response=> {
       console.log(response.data)
       self.configjson =JSON.parse(JSON.stringify(response.data))
