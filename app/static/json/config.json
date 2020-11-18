@@ -1,69 +1,24 @@
 {
-  "v1":{
-    "library_url":"https://kgrid-library.herokuapp.com",
-    "activator_url":"http://kgrid.med.umich.edu/stack2/knowledgeObject/",
-    "objects":{
-      "prostate":{
-        "risk_id":"ark:/99999/fk4571p57h",
-        "risk_endpoint":"/result",
-        "inter_id":"ark:/99999/fk4n87hh26",
-        "inter_endpoint":"/result"
-      },
-      "lung":{
-        "risk_id":"ark:/99999/fk4jh3tk9s",
-        "risk_endpoint":"/result",
-        "inter_id":"ark:/99999/fk4805c32z",
-        "inter_endpoint":"/result"
-      },
-      "liver":{
-        "risk_id":"ark:/99999/fk41g0zc28",
-        "risk_endpoint":"/result",
-        "inter_id":"ark:/99999/fk4474n87d",
-        "inter_endpoint":"/result"
-      }
-    },
-    "inputtemplate":[
-        {"fieldname":"age","prostate":false,"lung":true,"liver":true},
-        {"fieldname":"Race","prostate":false,"lung":false,"liver":false},
-        {"fieldname":"DRE","prostate":true,"lung":false,"liver":false},
-        {"fieldname":"PSA","prostate":true,"lung":false,"liver":false},
-        {"fieldname":"PriorBiop","prostate":true,"lung":false,"liver":false},
-        {"fieldname":"edLevel","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"bmi","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"hxLungCancer","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"hxLungCancerFam","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"hxNonLungCancerDz","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"yrsSmoker","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"cigsPerDay","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"yrsQuit","prostate":false,"lung":true,"liver":false},
-        {"fieldname":"HBVDNAlevel","prostate":false,"lung":false,"liver":true},
-        {"fieldname":"ALT","prostate":false,"lung":false,"liver":true},
-        {"fieldname":"HBeAg","prostate":false,"lung":false,"liver":true},
-        {"fieldname":"HepB","prostate":false,"lung":false,"liver":true},
-        {"fieldname":"gender","prostate":true,"lung":false,"liver":true}
-    ]
-
-  },
   "v2": {
     "library_url":"https://library.kgrid.org",
-    "activator_url":"https://activator.kgrid.org/",
+    "activator_url":"https://activator-playground.herokuapp.com/",
     "objects":{
       "prostate":{
-        "risk_id":"99999/fk4571p57h",
+        "risk_id":"99999/fk4571p57h/1.0",
         "risk_endpoint":"/ProstateRiskCalc",
-        "inter_id":"99999/fk4n87hh26",
+        "inter_id":"99999/fk4n87hh26/1.0",
         "inter_endpoint":"/interpretProstateCancerRisk"
       },
       "lung":{
-        "risk_id":"99999/fk4jh3tk9s",
+        "risk_id":"99999/fk4jh3tk9s/1.0",
         "risk_endpoint":"/getSixyearprobability",
-        "inter_id":"99999/fk4805c32z",
+        "inter_id":"99999/fk4805c32z/1.0",
         "inter_endpoint":"/interpretLungCancerRisk"
       },
       "liver":{
-        "risk_id":"99999/fk41g0zc28",
+        "risk_id":"99999/fk41g0zc28/1.0",
         "risk_endpoint":"/getThreeYearHCCRisk",
-        "inter_id":"99999/fk4474n87d",
+        "inter_id":"99999/fk4474n87d/1.0",
         "inter_endpoint":"/interpretLiverCancerRisk"
       }
     },
