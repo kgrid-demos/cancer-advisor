@@ -1,0 +1,62 @@
+{ "patients":
+  [
+   {
+   "age" : 65,
+    "Race" : 1,
+    "DRE" : 1,
+    "PSA" : 2,
+    "PriorBiop" : 1,
+    "edLevel" : 1,
+    "bmi" : 27,
+    "hxLungCancer" : 1,
+    "hxLungCancerFam" : 1,
+    "hxNonLungCancerDz" : 1,
+    "yrsSmoker" : 20,
+    "cigsPerDay" : 8,
+    "yrsQuit" : 5,
+    "HBVDNAlevel" : 99999,
+    "ALT" : 47,
+    "HBeAg" : 1,
+    "HepB" : 1,
+    "gender" : "M"
+    },{
+    "age" :60,
+    "Race" : 1,
+    "DRE" : 1,
+    "PSA" : 1,
+    "PriorBiop" : 1,
+    "edLevel" : 6,
+    "bmi" : 23.4,
+    "hxLungCancer" : 0,
+    "hxLungCancerFam" : 0,
+    "hxNonLungCancerDz" : 0,
+    "yrsSmoker" : 10,
+    "cigsPerDay" : 10,
+    "yrsQuit" : 20,
+    "HBVDNAlevel" : 14200,
+    "ALT" : 47,
+    "HBeAg" : 1,
+    "HepB" : 1,
+    "gender" : "M"
+    },{
+    "age" :56,
+    "Race" : 1,
+    "DRE" : 1,
+    "PSA" : 1,
+    "PriorBiop" : 1,
+    "edLevel" : 1,
+    "bmi" : 23.4,
+    "hxLungCancer" : 1,
+    "hxLungCancerFam" : 0,
+    "hxNonLungCancerDz" : 1,
+    "yrsSmoker" : 10,
+    "cigsPerDay" : 10,
+    "yrsQuit" : 10,
+    "HBVDNAlevel" : 0,
+    "ALT" : 47,
+    "HBeAg" : 0,
+    "HepB" : 0,
+    "gender" : "M"
+    }
+  ]
+}
