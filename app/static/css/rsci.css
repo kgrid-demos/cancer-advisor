@@ -1,0 +1,458 @@
+	html, body
+	{
+		height: 100%;
+		color: #666666;
+	}
+	h1 {
+		font-size: 28px;
+		margin-top: 12px;
+		margin-bottom:12px;
+		font-style: italic;
+		font-weight: 600;
+		color:#fff;
+	}
+	h2, h3 {
+		margin-top: 3px;
+		margin-bottom: 0px;
+	}
+  a:hover, a:active, a:focus,a:visited {
+		 text-decoration: none;
+	}
+
+	.ft-sz-12{		font-size: 12px;	}
+	.ft-sz-14{		font-size: 14px;	}
+	.box-header>h3{	 margin:0px;  	 }
+
+
+.kgridblue {	  background: #006496; }
+.yellow  {      background: #c2a303; }
+.green  {      background: #78a22f; }
+   .teal  {      background: #00788a; }
+ .blue  {      background: #00649b; }
+     .purple  {     background: #00788a; }
+
+ul#eventlog {
+	padding-left: 8px;
+}
+ul#eventlog li {
+	line-height:1.1em;
+}
+
+ul#eventlog li.app span{
+	color: #364496;
+}
+ul#eventlog li.lung span, a.lung{
+	color: #c2a303;
+}
+ul#eventlog li.liver span, a.liver{
+	color: #78a22f;
+}
+ul#eventlog li.prostate span, a.prostate{
+	color: #00788a;
+}
+ul#eventlog li.err span{
+	color:red;
+}
+
+	header {
+		height: 50px;
+		background-color: #364496;
+	}
+	::-webkit-scrollbar {
+    width: 8px;
+		height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+/*     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
+}
+::-webkit-scrollbar-track {
+      background-color: #fff;
+} /* the new scrollbar will have a flat appearance with the set background color */
+
+::-webkit-scrollbar-thumb {
+      background-color: #e6e6e6;
+} /* this will style the thumb, ignoring the track */
+
+::-webkit-scrollbar-button {
+    display:none;
+      background-color: #e6e6e6;
+} /* optionally, you can style the top and the bottom buttons (left and right for horizontal bars) */
+
+::-webkit-scrollbar-corner {
+      background-color: #fff;
+} /* if both the vertical and the horizontal bars appear, then perhaps the right bottom corner also needs to be styled */
+
+select {
+	width: 96%;
+	margin-top:8px;
+	padding: 1px 1px;
+	border: none;
+	border-radius: 0px;
+	background-color: #e3e3e3;
+	font-size: 12pt;
+}
+
+input:focus {
+	border: 1px solid #364496;
+}
+
+input[type=radio] {
+	padding: 8px 4px;
+	margin: 12px 0px 0px 12px;
+}
+
+input[type=number], input[type=text] {
+	width: 96%;
+	margin-top:8px;
+	padding: 1px 1px;
+	box-sizing: border-box;
+	border-radius:0px;
+	background-color: #e3e3e3;
+	font-size: 12pt;
+}
+button[type=button] {
+	width: 90%;
+	border: none;
+	background-color: #364496;
+	color: #FFFFFF;
+	padding: 16px 32px;
+	border-radius: 0px;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 12pt;
+}
+
+button[type=button]:active {
+	transform: translateY(4px);
+}
+
+button[type=button]:disabled {
+	color: #666666;
+}
+.border-box
+	{
+		border: 1px solid steelblue;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		padding: 5px;
+	}
+
+.patient-row {
+		margin-top: 0px;
+		background-color: #f3f3f3;
+	}
+	.resource-row {
+		margin-bottom: 0px;
+		background-color: #f3f3f3;
+	}
+	.resource-row span {
+		margin-bottom: 20px;
+		margin-left: 10px;
+	}
+	.patient-row span {
+		margin-left: 10px;
+	}
+
+.pad-5 {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+	.ht-full{
+		height: 100%;
+		min-height:544px;
+	}
+		.pad-left0 {		padding-left: 0px;	}
+	.pad-left10 {		padding-left: 10px;	}
+	.pad-left20 {		padding-left: 20px;	}
+	.pad-right5 {		padding-right: 5px;	}
+	.pad-top10 {		padding-top: 10px;	}
+	.pad-top20 {		padding-top: 20px;	}
+	.pad-top30 {		padding-top: 30px;	}
+	.pad-top40 {		padding-top: 40px;	}
+
+	.box-header
+	{
+		padding: 10px;
+		text-align: center;
+	}
+
+	.table-striped
+	{
+		width: 100%;
+		margin: 8px auto 14px;
+	}
+
+
+	table, th, td {
+		padding: 4px;
+		text-align: center;
+		border-collapse: collapse;
+		font-family: "Arial", cursive, sans-serif;
+	}
+
+	td.inputLabel {
+		font-size: 12px;
+		font-weight: 500;
+		font-style: italic;
+	}
+
+	table {
+		border: 2px solid #364496;
+		border-radius: 8px;
+		width: 100%;
+	}
+
+	tr {
+		margin: 2px 0px;
+	}
+	.k-container {
+		padding: 10px 0px;
+		margin: 0 auto;
+		width: 92%;
+	}
+	th {
+		background-color: #364496;
+		color: #FFFFFF;
+		border-bottom: 1px solid #fff;
+		position: relative;
+		height:34px;
+	}
+  .k-container-car {
+		line-height: 32px;
+		height: 32px;
+		bottom:0px;
+		width: 100%;
+		position: fixed;
+		background-color:#364496;
+		color:#fff;
+  }
+	.inputField label {
+		background-color: #fff;
+		position: absolute;
+		top: -6px;
+		left: 6px;
+		font-style: italic;
+		font-size: 11px;
+		font-weight: 600;
+		padding: 0px 8px;
+	}
+div#collapseStatus {
+	background-color: #f3f3f3;
+	max-height:120px;
+}
+div.statussec {
+	border: none;
+	margin-bottom: 34px;
+}
+div.statussec button, div.statussec button:hover,  div.statussec button:active,  div.statussec button:focus {
+	width: 100%;
+	border-radius: 0px;
+	text-align: left;
+	background-color: #364496;
+	    color: #fff;
+    font-weight: 700;
+		border-color: #e3e3e3;
+		outline: none;
+		padding: 6px 16px;
+}
+textarea#statusArea, div#statuslog {
+	background-color: #f3f3f3;
+	position: relative;
+	width: 100%;
+	resize: none;
+	padding: 4px 6px;
+	border: none;
+	color: #666666;
+	min-height: 100px;
+	max-height:120px;
+	font-weight: 500;
+	line-height: 1.1em;
+	font-size: 14px;
+	margin: 0 auto;
+	overflow: auto;
+}
+.highlighted{
+	background-color: #ffcb05;
+	border-color: #f2f2f2;
+}
+#prosData, #lungData, #liverData {
+	width: 90%;
+	margin: 0 auto;
+	border-radius: 10px;
+	/* border: 1px solid #e6e6e6;  */
+	padding: 5px 0px 15px 0px;
+	font-size: 18px;
+	font-weight: 700;
+	/* background-color: #e6e6e6; */
+	height: 460px;
+}
+#prosData.hide, #lungData.hide, #liverData div.hide{
+	opacity:0;
+}
+#lung-icon, #liver-icon, #prostate-icon {
+	transition: opacity 0.5s ease;
+	opacity:1;
+}
+#lung-icon.opa, #liver-icon.opa, #prostate-icon.opa{
+	opacity:0.2;
+}
+#prosInterpret, #lungInterpret, #liverInterpret {
+	height: 260px;
+	max-height:280px;
+	overflow:auto;
+	margin:10px auto;
+	width:98%;
+	opacity: 0;
+	background-color: transparent;
+	position:absolute;
+	top:120px;
+	transition: opacity 0.5s ease;
+}
+#prosInterpret.vis, #lungInterpret.vis, #liverInterpret.vis {
+	opacity:1;
+}
+div#results {
+	min-height: 360px;
+}
+div.inputField {
+	margin: 4px;
+	padding: 4px;
+	border: 1px solid #e3e3e3;
+	position: relative;
+	height: 45px;
+	max-width: 340px;
+	min-width: 220px;
+	background-color: transparent;
+}
+div.outputField {
+	position: relative;
+	margin: 4px;
+	padding: 4px;
+	border: 2px solid #e3e3e3;
+	border-radius: 6px;
+	position: relative;
+	height: 540px;
+	width: 96%;
+	min-width:300px;
+	background-color: #f2f2f2;
+}
+div.scoreDisplay {
+	position: relative;
+	display: inline-block;
+	min-width: 100px;
+	border-radius:10px;
+	border:1px solid #fff;
+	margin:5px;
+}
+div.scoreTitle {
+	position: relative;
+	min-width: 100px;
+	font-size: 16px;
+	background-color:#fff;
+		border-top-left-radius:10px;
+		border-top-right-radius:10px;
+}
+div.scoreResult {
+	position: relative;
+	min-width: 100px;
+	font-size: 35px;
+}
+div.scoreResult span{
+	font-size: 18px;
+	vertical-align:baseline;
+}
+div.scoreDisplay {
+	position: relative;
+	display: inline-block;
+	min-width: 180px;
+	border-radius:10px;
+	border:1px solid #fff;
+	margin:5px;
+}
+div.scoreTitle {
+	position: relative;
+	min-width: 100px;
+	font-size: 16px;
+	background-color:#fff;
+		border-top-left-radius:10px;
+		border-top-right-radius:10px;
+}
+div.scoreResult {
+	position: relative;
+	min-width: 100px;
+	font-size: 35px;
+}
+div.scoreResult span{
+	font-size: 18px;
+	vertical-align:baseline;
+}
+label#pdata, label#sdata {
+	background-color: transparent;
+	font-size: 24px;
+	font-style: normal;
+	top: 6px;
+	left: 6px;
+}
+label.outputTitle {
+	top: -12px;
+	font-size: 18px;
+	color: black;
+	left: 20px;
+	position:absolute;
+}
+svg {
+	transform: scaleX(0.72) scaleY(0.72);
+	position: absolute;
+	top:50px;
+	left:0px;
+}
+.interpretBtn {
+	position: absolute;
+	/* margin: 0 auto; */
+	bottom: 10px;
+	left: 20px;
+}
+span.sourcelink {
+	position: absolute;
+	top: -10px;
+	right: 20px;
+	background-color: #f1f1f1;
+	padding: 0px 4px;
+	color: #666666;
+}
+.radio-group  label {
+  color: #fff;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+	padding: 0px 4px;
+	margin: 0px 15px 1px 0px;
+	border: solid 1px #364496;
+}
+label#pdata, label#sdata {
+	background-color: transparent;
+	font-size: 24px;
+	font-style: normal;
+	top:0px;
+	left: 6px;
+	height:33px;
+	position: absolute;
+}
+input[type=radio]:checked + label {
+  color: #fff;
+  background: #364496;
+}
+.radio-group {
+  display: inline-block;
+  margin: 0px;
+  border-radius: 0px;
+  overflow: hidden;
+}
